@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #10B981; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; background: #f9f9f9; }
+        .progress-bar { background: #e0e0e0; border-radius: 10px; height: 20px; }
+        .progress-fill { background: #10B981; height: 100%; border-radius: 10px; }
+        .footer { text-align: center; padding: 10px; font-size: 12px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Weekly Progress Report</h1>
+        </div>
+        <div class="content">
+            <h2>Hello {{ user_name }}!</h2>
+            <p>Here's your progress summary for this week:</p>
+
+            <h3>Tasks Completed</h3>
+            <p>{{ completed_tasks }} / {{ total_tasks }} tasks ({{ completion_rate }}%)</p>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: {{ completion_rate }}%"></div>
+            </div>
+
+            <h3>Active Goals</h3>
+            {% for goal in goals %}
+            <p>{{ goal.title }}: {{ goal.progress }}%</p>
+            {% endfor %}
+
+            <p>Keep up the great work!</p>
+        </div>
+        <div class="footer">
+            <p>Academic Success Platform - Helping you achieve your goals</p>
+        </div>
+    </div>
+</body>
+</html>

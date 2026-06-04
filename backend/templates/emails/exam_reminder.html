@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #4F46E5; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; background: #f9f9f9; }
+        .footer { text-align: center; padding: 10px; font-size: 12px; color: #666; }
+        .btn { background: #4F46E5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Academic Success Platform</h1>
+        </div>
+        <div class="content">
+            <h2>Exam Reminder</h2>
+            <p>Dear {{ user_name }},</p>
+            <p>This is a friendly reminder about your upcoming exam:</p>
+            <ul>
+                <li><strong>Course:</strong> {{ course_code }} - {{ course_name }}</li>
+                <li><strong>Exam:</strong> {{ exam_title }}</li>
+                <li><strong>Date:</strong> {{ exam_date }}</li>
+                <li><strong>Time:</strong> {{ exam_time }}</li>
+                <li><strong>Duration:</strong> {{ duration }} minutes</li>
+                <li><strong>Total Marks:</strong> {{ total_marks }}</li>
+            </ul>
+            <p>Make sure you're well prepared. Good luck!</p>
+            <p><a href="{{ dashboard_url }}" class="btn">View Study Plan</a></p>
+        </div>
+        <div class="footer">
+            <p>Academic Success Platform - Helping you achieve your goals</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: academic_success
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./backend:/app
+      - media_data:/app/media
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SECRET_KEY=django-insecure-fallback-key-change-in-production
+      - DJANGO_DEBUG=True
+      - DB_NAME=academic_success
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_HOST=db
+      - DB_PORT=5432
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - db
+      - redis
+
+  celery:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: celery -A config worker -l info
+    volumes:
+      - ./backend:/app
+    environment:
+      - DJANGO_SECRET_KEY=django-insecure-fallback-key-change-in-production
+      - DJANGO_DEBUG=True
+      - DB_NAME=academic_success
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_HOST=db
+      - DB_PORT=5432
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - db
+      - redis
+
+  celery-beat:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: celery -A config beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    volumes:
+      - ./backend:/app
+    environment:
+      - DJANGO_SECRET_KEY=django-insecure-fallback-key-change-in-production
+      - DJANGO_DEBUG=True
+      - DB_NAME=academic_success
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_HOST=db
+      - DB_PORT=5432
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - db
+      - redis
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000/api
+
+  daphne:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: daphne -b 0.0.0.0 -p 8001 config.asgi:application
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8001:8001"
+    environment:
+      - DJANGO_SECRET_KEY=django-insecure-fallback-key-change-in-production
+      - DJANGO_DEBUG=True
+      - DB_NAME=academic_success
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_HOST=db
+      - DB_PORT=5432
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - db
+      - redis
+
+volumes:
+  postgres_data:
+  media_data:

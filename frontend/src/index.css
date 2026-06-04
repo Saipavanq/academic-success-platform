@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-default: #ffffff;
+  --bg-subtle: #f9fafb;
+  --bg-muted: #f3f4f6;
+  --bg-primary-50: #eef2ff;
+  --bg-primary-100: #e0e7ff;
+  --text-default: #111827;
+  --text-secondary: #374151;
+  --text-muted: #6b7280;
+  --text-subtle: #9ca3af;
+  --border-default: #e5e7eb;
+  --border-strong: #d1d5db;
+  --gradient-from: #eef2ff;
+  --gradient-to: #e0e7ff;
+}
+
+.dark {
+  --bg-default: #1f2937;
+  --bg-subtle: #111827;
+  --bg-muted: #1e293b;
+  --bg-primary-50: #1e293b;
+  --bg-primary-100: #1e3a5f;
+  --text-default: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-subtle: #64748b;
+  --border-default: #334155;
+  --border-strong: #475569;
+  --gradient-from: #0f172a;
+  --gradient-to: #1e293b;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-subtle);
+  color: var(--text-default);
+}
+
+.bg-white { background-color: var(--bg-default); }
+.bg-gray-50 { background-color: var(--bg-subtle); }
+.bg-gray-100 { background-color: var(--bg-muted); }
+.bg-primary-50 { background-color: var(--bg-primary-50); }
+.bg-primary-100 { background-color: var(--bg-primary-100); }
+.hover\:bg-gray-50:hover { background-color: var(--bg-muted); }
+.hover\:bg-gray-100:hover { background-color: var(--bg-muted); }
+.from-primary-50 { --tw-gradient-from: var(--gradient-from); }
+.to-primary-100 { --tw-gradient-to: var(--gradient-to); }
+
+.text-gray-900 { color: var(--text-default); }
+.text-gray-800 { color: var(--text-default); }
+.text-gray-700 { color: var(--text-secondary); }
+.text-gray-600 { color: var(--text-muted); }
+.text-gray-500 { color: var(--text-muted); }
+.text-gray-400 { color: var(--text-subtle); }
+
+.border-gray-100 { border-color: var(--border-default); }
+.border-gray-200 { border-color: var(--border-default); }
+.border-gray-300 { border-color: var(--border-strong); }
+.divide-gray-100 > :not([hidden]) ~ :not([hidden]) { border-color: var(--border-default); }
+.divide-gray-200 > :not([hidden]) ~ :not([hidden]) { border-color: var(--border-default); }
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium;
+  }
+  .btn-secondary {
+    @apply bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors font-medium;
+  }
+  .card {
+    background-color: var(--bg-default);
+    @apply rounded-xl shadow-sm border border-gray-100 p-6;
+  }
+  .input {
+    background-color: var(--bg-default);
+    color: var(--text-default);
+    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none;
+  }
+}
+
+.dark .btn-secondary {
+  background-color: #374151;
+  color: #e5e7eb;
+}
+.dark .btn-secondary:hover {
+  background-color: #4b5563;
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #F59E0B; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; background: #f9f9f9; }
+        .footer { text-align: center; padding: 10px; font-size: 12px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Goal Deadline Approaching</h1>
+        </div>
+        <div class="content">
+            <h2>Hello {{ user_name }}!</h2>
+            <p>Your goal is approaching its deadline:</p>
+            <ul>
+                <li><strong>Goal:</strong> {{ goal_title }}</li>
+                <li><strong>Target Date:</strong> {{ target_date }}</li>
+                <li><strong>Days Left:</strong> {{ days_left }}</li>
+                <li><strong>Current Progress:</strong> {{ progress }}%</li>
+            </ul>
+            <p>Don't give up! You're almost there!</p>
+        </div>
+        <div class="footer">
+            <p>Academic Success Platform - Helping you achieve your goals</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "AcademiQ",
+    "slug": "academic-success-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#4F46E5"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.academic.success"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#4F46E5"
+      },
+      "package": "com.academic.success"
+    },
+    "plugins": ["expo-notifications"]
+  }
+}
