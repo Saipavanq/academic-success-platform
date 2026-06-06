@@ -1,6 +1,12 @@
-from transformers import pipeline
 from collections import Counter
 import re
+
+try:
+    from transformers import pipeline
+    HAS_TRANSFORMERS = True
+except ImportError:
+    pipeline = None
+    HAS_TRANSFORMERS = False
 
 
 class TopicClassifier:
@@ -9,6 +15,9 @@ class TopicClassifier:
         self._load_model()
 
     def _load_model(self):
+        if not HAS_TRANSFORMERS:
+            self.classifier = None
+            return
         try:
             self.classifier = pipeline(
                 "zero-shot-classification",
