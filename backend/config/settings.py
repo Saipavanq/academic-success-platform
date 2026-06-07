@@ -125,6 +125,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
     'http://127.0.0.1:3000',
     'https://academic-success-platform.vercel.app',
+    'https://academic-success-platform-omega.vercel.app',
     'https://academic-success-platform-git-main.vercel.app',
 ]
 CORS_ALLOW_CREDENTIALS = True
