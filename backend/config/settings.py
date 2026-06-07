@@ -73,9 +73,16 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 DATABASES = {
     'default': dj_database_url.config(
-        default=f'sqlite:///{BASE_DIR / "db.sqlite3"}'
+        default=f'sqlite:///{BASE_DIR / "db.sqlite3"}',
+        conn_max_age=600,
     )
 }
+
+# Railway provides DATABASE_PUBLIC_URL, fallback to DATABASE_URL
+if DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
+    db_url = os.getenv('DATABASE_PUBLIC_URL') or os.getenv('DATABASE_URL')
+    if db_url:
+        DATABASES['default'] = dj_database_url.parse(db_url, conn_max_age=600)
 
 # Auth
 AUTH_USER_MODEL = 'accounts.User'
@@ -122,7 +129,7 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_CREDENTIALS = True
 
 # Email - console backend for development, SMTP for production
-EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
 EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
 EMAIL_PORT = int(os.getenv('EMAIL_PORT', '587'))
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
