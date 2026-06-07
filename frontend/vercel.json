@@ -6,7 +6,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://academic-success-platform.up.railway.app/api/:path*"
+      "destination": "https://academic-success-platform-production.up.railway.app/api/:path*"
     }
   ]
 }
